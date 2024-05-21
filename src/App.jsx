@@ -1,13 +1,40 @@
-import { useState } from "react"
-import { useEffect } from "react"
-import { marked } from "marked"
+import { useState, useEffect } from "react"
+import { Marked } from "marked"
+import { markedHighlight } from "marked-highlight";
+import hljs from 'highlight.js';
+
+const marked = new Marked(
+  markedHighlight({
+    langPrefix: 'hljs language-',
+    highlight(code, lang, info) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, { language }).value;
+    }
+  })
+);
 
 marked.use({
-  breaks: true
+  breaks: true,
 });
 
-const defaultMarkup = 
-`# Welcome to my React Markdown Previewer!
+export default function App() {
+  const [userInput, setUserInput] = useState(placholder);
+
+  const handleChange = (event) => setUserInput(event.target.value);
+
+  useEffect(() => {
+    document.getElementById("preview").innerHTML = marked.parse(userInput);
+  });
+
+  return (
+    <>
+      <textarea id="editor" onChange={handleChange} value={userInput}></textarea>
+      <div id="preview"></div>
+    </>
+  )
+}
+
+const placholder = `# Welcome to my React Markdown Previewer!
 
 ## This is a sub-heading...
 ### And here's some other cool stuff:
@@ -52,20 +79,3 @@ And here. | Okay. | I think we get it.
 ![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
 
 `;
-
-export default function App() {
-  const [userInput, setUserInput] = useState(defaultMarkup);
-
-  const handleChange = (event) => setUserInput(event.target.value);
-
-  useEffect(() => {
-    document.getElementById("preview").innerHTML = marked.parse(userInput);
-  });
-
-  return (
-    <>
-      <textarea id="editor" onChange={handleChange}>{userInput}</textarea>
-      <div id="preview"></div>
-    </>
-  )
-}
