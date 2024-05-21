@@ -1,20 +1,9 @@
 import { useState, useEffect } from "react"
-import { Marked } from "marked"
-import { markedHighlight } from "marked-highlight";
+import { marked } from "marked"
 import hljs from 'highlight.js';
 
-const marked = new Marked(
-  markedHighlight({
-    langPrefix: 'hljs language-',
-    highlight(code, lang, info) {
-      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-      return hljs.highlight(code, { language }).value;
-    }
-  })
-);
-
 marked.use({
-  breaks: true,
+  breaks: true
 });
 
 export default function App() {
@@ -24,6 +13,7 @@ export default function App() {
 
   useEffect(() => {
     document.getElementById("preview").innerHTML = marked.parse(userInput);
+    hljs.highlightAll();
   });
 
   return (
