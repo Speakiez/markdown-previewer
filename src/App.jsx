@@ -6,8 +6,15 @@ marked.use({
   breaks: true
 });
 
+const defaultMarkup = 
+`
+# Welcome to my React Markdown Previewer!
+## This is a sub-heading...
+### And here's some other cool stuff:
+`;
+
 export default function App() {
-  const [userInput, setUserInput] = useState("# Markup Previewer");
+  const [userInput, setUserInput] = useState(defaultMarkup);
 
   const handleChange = (event) => setUserInput(event.target.value);
 
