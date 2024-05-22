@@ -18,8 +18,12 @@ export default function App() {
 
   return (
     <>
-      <textarea id="editor" onChange={handleChange} value={userInput}></textarea>
-      <div id="preview"></div>
+      <div className="editor-wrapper">
+        <textarea id="editor" onChange={handleChange} value={userInput}></textarea>
+      </div>
+      <div className="preview-wrapper">
+        <div id="preview"></div>
+      </div>
     </>
   )
 }

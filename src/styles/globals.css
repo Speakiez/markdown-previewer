@@ -35,7 +35,7 @@ html {
 #editor, #preview {
   min-height: 200px;
   outline: none;
-  background-color: #DDDDDD;
+  background-color: #FFFFFF;
   border: 2px solid #000000;
   box-shadow: 4px 4px 0 #000000;
   resize: vertical;
@@ -71,7 +71,9 @@ h2 {
 }
 
 pre, code {
-  background-color: #FFFFFF;
+  padding: 4px 2px;
+  background-color: #1E1E1E;
+  color: #DCDCDC;
 }
 
 blockquote {
