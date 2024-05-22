@@ -6,11 +6,20 @@ marked.use({
   breaks: true
 });
 
-export default function App() {
-  const [userInput, setUserInput] = useState(placholder);
+function Editor({ handleChange, userInput }) {
+  return (
+    <>
+      <div id="editor-wrapper">
+        <header id="editor-header">
+          <span>Editor</span>
+        </header>
+        <textarea id="editor" onChange={handleChange} value={userInput}></textarea>
+      </div>
+    </>
+  );
+}
 
-  const handleChange = (event) => setUserInput(event.target.value);
-
+function Previewer({ userInput }) {
   useEffect(() => {
     document.getElementById("preview").innerHTML = marked.parse(userInput);
     hljs.highlightAll();
@@ -18,18 +27,24 @@ export default function App() {
 
   return (
     <>
-      <div className="editor-wrapper">
-        <header className="editor-header">
-          <span>Editor</span>
-        </header>
-        <textarea id="editor" onChange={handleChange} value={userInput}></textarea>
-      </div>
       <div className="preview-wrapper">
         <header className="preview-header">
           <span>Previewer</span>
         </header>
         <div id="preview"></div>
       </div>
+    </>
+  );
+}
+
+export default function App() {
+  const [userInput, setUserInput] = useState(placholder);
+  const handleChange = (event) => setUserInput(event.target.value);
+
+  return (
+    <>
+      <Editor handleChange={handleChange} userInput={userInput}/>
+      <Previewer userInput={userInput}/>
     </>
   )
 }
