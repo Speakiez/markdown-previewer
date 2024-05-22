@@ -32,6 +32,23 @@ html {
   background-color: var(--background-color);
 }
 
+.editor-header, .preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 40px;
+  padding:  8px;
+  background-color: #6DC5D1;
+  border: 2px solid #000000;
+  border-bottom: none;
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.editor-header span, .preview-header span {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
 #editor, #preview {
   min-height: 200px;
   outline: none;

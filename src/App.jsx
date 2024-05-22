@@ -19,9 +19,15 @@ export default function App() {
   return (
     <>
       <div className="editor-wrapper">
+        <header className="editor-header">
+          <span>Editor</span>
+        </header>
         <textarea id="editor" onChange={handleChange} value={userInput}></textarea>
       </div>
       <div className="preview-wrapper">
+        <header className="preview-header">
+          <span>Previewer</span>
+        </header>
         <div id="preview"></div>
       </div>
     </>
