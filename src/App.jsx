@@ -11,30 +11,31 @@ function Editor({ handleChange, userInput }) {
     const elementWrapper = document.getElementById("editor-wrapper");
     const elementHeader = document.getElementById("editor-header");
 
-    let pos1 = 0, 
-    pos2 = 0, 
-    pos3 = 0, 
-    pos4 = 0;
+    let 
+    initialX = 0,
+    initialY = 0,
+    newX = 0,
+    newY = 0;
 
     function makeElementDraggable(element, header) {
-      header.onmousedown = dragMouseDown;
+      header.onmousedown = mouseDownOnElement;
 
-      function dragMouseDown(event) {
-        pos3 = event.clientX;
-        pos4 = event.clientY;
+      function mouseDownOnElement(event) {
+        initialX = event.clientX;
+        initialY = event.clientY;
 
         document.onmousemove = dragElement;
         document.onmouseup = stopDragElement;
       }
 
       function dragElement(event) {
-        pos1 = pos3 - event.clientX;
-        pos2 = pos4 - event.clientY;
-        pos3 = event.clientX;
-        pos4 = event.clientY;
-
-        element.style.left = (element.offsetLeft - pos1) + "px";
-        element.style.top = (element.offsetTop - pos2) + "px";
+        newX = initialX - event.clientX;
+        newY = initialY - event.clientY;
+        initialX = event.clientX;
+        initialY = event.clientY;
+        
+        element.style.left = (element.offsetLeft - newX) + "px";
+        element.style.top = (element.offsetTop - newY) + "px";
       }
 
       function stopDragElement() {
@@ -63,30 +64,31 @@ function Previewer({ userInput }) {
     const elementWrapper = document.getElementById("preview-wrapper");
     const elementHeader = document.getElementById("preview-header");
 
-    let pos1 = 0, 
-    pos2 = 0, 
-    pos3 = 0, 
-    pos4 = 0;
+    let 
+    initialX = 0,
+    initialY = 0,
+    newX = 0,
+    newY = 0;
 
     function makeElementDraggable(element, header) {
-      header.onmousedown = dragMouseDown;
+      header.onmousedown = mouseDownOnElement;
 
-      function dragMouseDown(event) {
-        pos3 = event.clientX;
-        pos4 = event.clientY;
+      function mouseDownOnElement(event) {
+        initialX = event.clientX;
+        initialY = event.clientY;
 
         document.onmousemove = dragElement;
         document.onmouseup = stopDragElement;
       }
 
       function dragElement(event) {
-        pos1 = pos3 - event.clientX;
-        pos2 = pos4 - event.clientY;
-        pos3 = event.clientX;
-        pos4 = event.clientY;
+        newX = initialX - event.clientX;
+        newY = initialY - event.clientY;
+        initialX = event.clientX;
+        initialY = event.clientY;
 
-        element.style.left = (element.offsetLeft - pos1) + "px";
-        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - newX) + "px";
+        element.style.top = (element.offsetTop - newY) + "px";
       }
 
       function stopDragElement() {
@@ -116,7 +118,7 @@ function Previewer({ userInput }) {
 }
 
 export default function App() {
-  const [userInput, setUserInput] = useState(placholder);
+  const [userInput, setUserInput] = useState(initialText);
   const handleChange = (event) => setUserInput(event.target.value);
 
   return (
@@ -127,7 +129,7 @@ export default function App() {
   )
 }
 
-const placholder = `# Welcome to my React Markdown Previewer!
+const initialText = `# Welcome to my React Markdown Previewer!
 
 ## This is a sub-heading...
 ### And here's some other cool stuff:
