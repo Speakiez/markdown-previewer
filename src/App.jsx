@@ -125,6 +125,11 @@ export default function App() {
     <>
       <Editor handleChange={handleChange} userInput={userInput}/>
       <Previewer userInput={userInput}/>
+      <div id="credits">
+        Markdown Previewer
+        <br />
+        <a id="credits-link" href="https://github.com/Speakiez" target="_blank">Made by Speakiez</a>
+      </div>
     </>
   )
 }
