@@ -7,6 +7,45 @@ marked.use({
 });
 
 function Editor({ handleChange, userInput }) {
+  useEffect(() => {
+    const elementWrapper = document.getElementById("editor-wrapper");
+    const elementHeader = document.getElementById("editor-header");
+
+    let pos1 = 0, 
+    pos2 = 0, 
+    pos3 = 0, 
+    pos4 = 0;
+
+    function makeElementDraggable(element, header) {
+      header.onmousedown = dragMouseDown;
+
+      function dragMouseDown(event) {
+        pos3 = event.clientX;
+        pos4 = event.clientY;
+
+        document.onmousemove = dragElement;
+        document.onmouseup = stopDragElement;
+      }
+
+      function dragElement(event) {
+        pos1 = pos3 - event.clientX;
+        pos2 = pos4 - event.clientY;
+        pos3 = event.clientX;
+        pos4 = event.clientY;
+
+        element.style.left = (element.offsetLeft - pos1) + "px";
+        element.style.top = (element.offsetTop - pos2) + "px";
+      }
+
+      function stopDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    makeElementDraggable(elementWrapper, elementHeader);
+  });
+
   return (
     <>
       <div id="editor-wrapper">
@@ -21,14 +60,53 @@ function Editor({ handleChange, userInput }) {
 
 function Previewer({ userInput }) {
   useEffect(() => {
+    const elementWrapper = document.getElementById("preview-wrapper");
+    const elementHeader = document.getElementById("preview-header");
+
+    let pos1 = 0, 
+    pos2 = 0, 
+    pos3 = 0, 
+    pos4 = 0;
+
+    function makeElementDraggable(element, header) {
+      header.onmousedown = dragMouseDown;
+
+      function dragMouseDown(event) {
+        pos3 = event.clientX;
+        pos4 = event.clientY;
+
+        document.onmousemove = dragElement;
+        document.onmouseup = stopDragElement;
+      }
+
+      function dragElement(event) {
+        pos1 = pos3 - event.clientX;
+        pos2 = pos4 - event.clientY;
+        pos3 = event.clientX;
+        pos4 = event.clientY;
+
+        element.style.left = (element.offsetLeft - pos1) + "px";
+        element.style.top = (element.offsetTop - pos2) + "px";
+      }
+
+      function stopDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    makeElementDraggable(elementWrapper, elementHeader);
+  });
+
+  useEffect(() => {
     document.getElementById("preview").innerHTML = marked.parse(userInput);
     hljs.highlightAll();
   });
 
   return (
     <>
-      <div className="preview-wrapper">
-        <header className="preview-header">
+      <div id="preview-wrapper">
+        <header id="preview-header">
           <span>Previewer</span>
         </header>
         <div id="preview"></div>
